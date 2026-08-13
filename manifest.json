@@ -1,0 +1,53 @@
+﻿{
+    "manifest_version":  3,
+    "name":  "LitMedix - PubMed 文献助手",
+    "version":  "1.4.5",
+    "description":  "增强 PubMed 检索、筛选与本地文献笔记；支持用户自行导入期刊指标数据。",
+    "permissions":  [
+                        "storage",
+                        "unlimitedStorage",
+                        "contextMenus"
+                    ],
+    "host_permissions":  [
+                             "https://pubmed.ncbi.nlm.nih.gov/*",
+                             "https://eutils.ncbi.nlm.nih.gov/*"
+                         ],
+    "action":  {
+                   "default_popup":  "popup.html",
+                   "default_title":  "LitMedix",
+                   "default_icon":  {
+                                        "16":  "icons/icon-16.png",
+                                        "32":  "icons/icon-32.png",
+                                        "48":  "icons/icon-48.png",
+                                        "128":  "icons/icon-128.png"
+                                    }
+               },
+    "icons":  {
+                  "16":  "icons/icon-16.png",
+                  "32":  "icons/icon-32.png",
+                  "48":  "icons/icon-48.png",
+                  "128":  "icons/icon-128.png"
+              },
+    "background":  {
+                       "service_worker":  "background.js"
+                   },
+    "options_page":  "notes.html",
+    "content_scripts":  [
+                            {
+                                "matches":  [
+                                                "https://pubmed.ncbi.nlm.nih.gov/*"
+                                            ],
+                                "js":  [
+                                           "journal-data.js",
+                                           "content.js"
+                                       ],
+                                "css":  [
+                                            "content.css",
+                                            "journal-if.css",
+                                            "note-icon.css",
+                                            "filter-compact.css"
+                                        ],
+                                "run_at":  "document_idle"
+                            }
+                        ]
+}

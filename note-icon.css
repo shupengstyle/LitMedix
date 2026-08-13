@@ -1,0 +1,19 @@
+.ps-note-button {
+  box-sizing: border-box !important;
+  width: 32px !important;
+  height: 26px !important;
+  min-width: 32px !important;
+  padding: 0 !important;
+  border-radius: 4px !important;
+  vertical-align: middle;
+}
+
+.ps-note-button svg {
+  display: block;
+  width: 20px;
+  height: 20px;
+}
+
+.ps-note-button path {
+  fill: currentColor;
+}

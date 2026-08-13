@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>LitMedix 文献笔记库</title>
+  <link rel="stylesheet" href="notes.css">
+  <link rel="stylesheet" href="notes-storage.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="https://pubmed.ncbi.nlm.nih.gov/" target="_blank" rel="noreferrer"><img src="icons/icon-48.png" alt=""><span><b>LitMedix</b><small>文献笔记库</small></span></a>
+    <div class="backup-actions">
+      <span id="folder-status" class="folder-status">存储：浏览器本地</span>
+      <button id="choose-folder" class="folder-button" type="button">选择存储文件夹</button>
+      <button id="sync-folder" type="button" disabled>立即同步</button>
+      <button id="export-notes" type="button">导出备份</button>
+      <label for="import-notes">导入备份</label>
+      <input id="import-notes" type="file" accept=".json,application/json">
+    </div>
+  </header>
+
+  <main class="workspace">
+    <aside class="sidebar">
+      <div class="library-title"><span>我的文献</span><b id="total-count">0</b></div>
+      <button class="tag-filter active" data-tag="" type="button"><span>全部笔记</span><b id="all-count">0</b></button>
+      <div class="sidebar-label">标签分类</div>
+      <div id="tag-list"></div>
+    </aside>
+
+    <section class="note-list-panel">
+      <div class="search-row">
+        <label><span aria-hidden="true">⌕</span><input id="note-search" type="search" placeholder="搜索标题、PMID、标签或笔记内容"></label>
+        <select id="sort-notes" aria-label="排序方式"><option value="updated">最近编辑</option><option value="title">标题排序</option></select>
+      </div>
+      <div id="result-summary"></div>
+      <div id="note-list" class="note-list"></div>
+      <div id="empty-list" class="empty-state" hidden><div>✦</div><h2>还没有匹配的笔记</h2><p>在 PubMed 文献标题下点击“笔记”，保存后会自动出现在这里。</p><a href="https://pubmed.ncbi.nlm.nih.gov/" target="_blank" rel="noreferrer">前往 PubMed</a></div>
+    </section>
+
+    <section class="editor-panel" id="editor-panel">
+      <div id="editor-empty" class="editor-empty"><img src="icons/icon-128.png" alt=""><h2>选择一篇文献</h2><p>在左侧列表中选择笔记，开始编辑或预览 Markdown。</p></div>
+      <div id="editor" hidden>
+        <div class="editor-head"><div><span id="editor-pmid"></span><a id="open-pubmed" target="_blank" rel="noreferrer">在 PubMed 打开 ↗</a></div><button id="delete-note" class="danger" type="button">删除笔记</button></div>
+        <input id="editor-title" class="title-input" aria-label="文献标题">
+        <label class="field-label" for="editor-tags">标签</label>
+        <input id="editor-tags" class="tags-input" placeholder="例如：肿瘤, Meta分析, 待精读">
+        <div class="editor-tabs"><button class="active" data-mode="write" type="button">Markdown 编辑</button><button data-mode="preview" type="button">预览</button><span>支持标题、加粗、列表、引用和代码</span></div>
+        <textarea id="editor-note" spellcheck="false" placeholder="# 核心结论&#10;&#10;- 研究设计：&#10;- 主要发现：&#10;- 局限性："></textarea>
+        <article id="markdown-preview" class="markdown-body" hidden></article>
+        <div class="editor-footer"><span id="save-state">所有数据仅保存在本机</span><button id="save-note" type="button">保存笔记</button></div>
+      </div>
+    </section>
+  </main>
+
+  <div id="toast" role="status"></div>
+  <script src="notes.js"></script>
+</body>
+</html>

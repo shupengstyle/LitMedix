@@ -1,0 +1,26 @@
+# Local / editor files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Private or licensed datasets
+*.xlsx
+*.xls
+*JCR*.csv
+*jcr*.csv
+*impact-factor*.csv
+*if-history*.csv
+
+# Secrets and local configuration
+.env
+.env.*
+*.pem
+*.key
+
+# Build artifacts
+*.crx
+*.zip
+dist/
+build/
+

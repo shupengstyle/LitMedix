@@ -1,0 +1,170 @@
+#paperscope-panel {
+  right: 18px;
+  top: 92px;
+  width: 274px;
+  border-radius: 17px;
+  font-size: 12.5px;
+}
+
+#paperscope-panel .ps-panel-head {
+  padding: 13px 14px 10px;
+  gap: 7px;
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+}
+
+#paperscope-panel.dragging,
+#paperscope-panel.dragging .ps-panel-head {
+  cursor: grabbing;
+}
+
+#paperscope-panel.dragging {
+  opacity: 0.94;
+  box-shadow: 0 16px 38px rgba(5, 35, 57, 0.28);
+}
+
+#paperscope-panel .ps-panel-head h3 {
+  font-size: 17px !important;
+}
+
+#paperscope-panel .ps-panel-head small {
+  margin-top: 2px;
+  font-size: 10px;
+}
+
+#paperscope-panel .ps-count {
+  font-size: 15px;
+}
+
+#paperscope-panel .ps-collapse {
+  position: relative;
+  flex: 0 0 24px;
+  width: 24px !important;
+  min-width: 24px !important;
+  height: 24px !important;
+  padding: 0 !important;
+  border: 1px solid rgba(122, 210, 232, 0.3) !important;
+  border-radius: 50% !important;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.11), rgba(255, 255, 255, 0.045)) !important;
+  color: #d9f6fc !important;
+  font-size: 0;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 4px 12px rgba(0, 19, 34, 0.16);
+  transition: border-color 0.16s ease, background 0.16s ease, box-shadow 0.16s ease, transform 0.16s ease;
+}
+
+#paperscope-panel .ps-collapse::before,
+#paperscope-panel .ps-collapse::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 9px;
+  height: 1.5px;
+  border-radius: 999px;
+  background: currentColor;
+  transform: translate(-50%, -50%);
+  transition: transform 0.18s ease, opacity 0.18s ease;
+}
+
+#paperscope-panel .ps-collapse::after {
+  opacity: 0;
+  transform: translate(-50%, -50%) rotate(90deg) scaleX(0.4);
+}
+
+#paperscope-panel.collapsed .ps-collapse::after {
+  opacity: 1;
+  transform: translate(-50%, -50%) rotate(90deg) scaleX(1);
+}
+
+#paperscope-panel .ps-collapse:hover {
+  border-color: rgba(56, 214, 238, 0.72) !important;
+  background: rgba(31, 171, 200, 0.2) !important;
+  color: #ffffff !important;
+  box-shadow: 0 0 0 3px rgba(56, 214, 238, 0.1), 0 5px 14px rgba(0, 19, 34, 0.2);
+  transform: translateY(-1px);
+}
+
+#paperscope-panel .ps-collapse:active {
+  transform: translateY(0) scale(0.94);
+}
+
+#paperscope-panel .ps-collapse:focus-visible {
+  outline: 2px solid rgba(56, 214, 238, 0.6);
+  outline-offset: 2px;
+}
+
+#paperscope-panel .ps-panel-body {
+  padding: 0 14px 14px;
+}
+
+#paperscope-panel .ps-if-head {
+  margin: 2px 0 4px;
+}
+
+#paperscope-panel .ps-if-head output {
+  font-size: 14px;
+}
+
+#paperscope-panel .ps-if-range {
+  margin-bottom: 10px;
+}
+
+#paperscope-panel .ps-quartiles {
+  gap: 5px;
+}
+
+#paperscope-panel .ps-quartiles button {
+  padding: 6px 2px;
+  border-radius: 7px;
+  font-size: 12px;
+}
+
+#paperscope-panel .ps-advanced {
+  margin-top: 9px;
+  padding-top: 7px;
+}
+
+#paperscope-panel .ps-reset {
+  margin-top: 8px;
+  padding: 6px;
+}
+
+#paperscope-panel.collapsed {
+  width: 178px;
+  border-radius: 14px;
+}
+
+#paperscope-panel.collapsed .ps-panel-head {
+  align-items: center;
+  padding: 10px 11px 10px 13px;
+}
+
+#paperscope-panel.collapsed .ps-panel-head > div {
+  min-width: 0;
+}
+
+#paperscope-panel.collapsed .ps-panel-head h3 {
+  overflow: hidden;
+  font-size: 14px !important;
+  line-height: 1.2 !important;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#paperscope-panel.collapsed .ps-panel-head small,
+#paperscope-panel.collapsed .ps-count {
+  display: none;
+}
+
+#paperscope-panel.collapsed .ps-collapse {
+  margin-left: auto;
+}
+
+@media (max-width: 900px) {
+  #paperscope-panel {
+    width: min(274px, calc(100vw - 20px));
+  }
+}

@@ -1,0 +1,33 @@
+﻿<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="popup.css">
+  <title>LitMedix</title>
+</head>
+<body>
+  <header><span class="mark">L</span><div><b>LitMedix</b><small>PubMed 文献助手</small></div></header>
+  <label class="switch"><span>启用页面增强</span><input id="enabled" type="checkbox"><i></i></label>
+  <button id="save">保存设置</button>
+  <button id="open-notes" class="notes-button" type="button">打开文献笔记库</button>
+  <section class="import-card">
+    <h2>更新影响因子</h2>
+    <p class="hint">导入 JSON、CSV 或 TSV。Excel 文件请先另存为“CSV UTF-8”。公开版不内置商业期刊数据库；请导入你有权使用的数据。</p>
+    <label class="year-field">数据年份<input id="if-year" type="number" min="2000" max="2100"></label>
+    <label class="file-button" for="if-file">选择数据文件</label>
+    <input id="if-file" type="file" accept=".json,.csv,.tsv,application/json,text/csv,text/tab-separated-values">
+    <div class="import-actions">
+      <button id="import-if" type="button" disabled>导入并应用</button>
+      <button id="clear-if" class="secondary" type="button">清除导入数据</button>
+    </div>
+    <button id="download-template" class="text-button" type="button">下载 CSV 导入模板</button>
+    <p id="import-summary">正在读取数据状态…</p>
+    <details><summary>支持的字段</summary><p>期刊名：name / journal / journal title<br>影响因子：JIF / IF / impact factor / JIF2026<br>分区：quartile / Q<br>可选：abbreviation、category、year</p></details>
+  </section>
+  <p id="status" role="status"></p>
+  <footer>公开版不内置商业期刊指标；用户导入数据和笔记仅保存在本机。</footer>
+  <script src="popup.js"></script>
+</body>
+</html>
+

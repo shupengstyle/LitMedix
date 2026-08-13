@@ -1,0 +1,6 @@
+.backup-actions{align-items:center;flex-wrap:wrap;justify-content:flex-end}
+.folder-status{max-width:210px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#647987;font-size:11px}
+.backup-actions button:disabled{cursor:not-allowed;opacity:.45}
+.backup-actions .folder-button{border-color:#0d7593;background:#0d7593;color:#fff}
+.backup-actions .folder-button:hover{border-color:#095d78;background:#095d78;color:#fff}
+@media(max-width:1050px){.folder-status{display:none}.backup-actions button,.backup-actions label{padding-inline:9px}}
