@@ -77,7 +77,13 @@ Windows 和 macOS 版 Chrome 通常限制普通用户直接安装本地 CRX，�
 
 如果 LitMedix 对你的科研工作有帮助，欢迎通过赞赏支持后续维护。
 
-> 打赏二维码将在作者提供正式赞赏码图片后显示。请勿向任何非本仓库或非官方公众号发布的二维码付款。
+<p align="center">
+  <img src="docs/assets/wechat-reward.jpg" width="320" alt="LitMedix 作者微信赞赏码">
+</p>
+
+<p align="center"><strong>微信赞赏码｜感谢支持 LitMedix 的持续维护</strong></p>
+
+赞赏完全自愿，不影响插件全部功能的免费使用。请仅认准本仓库展示的二维码，并在付款前核对收款方信息。
 
 ## 问题反馈与贡献
 
