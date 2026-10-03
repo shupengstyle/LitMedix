@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>欢迎使用 LitMedix</title>
+  <link rel="stylesheet" href="welcome.css">
+</head>
+<body>
+  <main>
+    <span class="logo">L</span>
+    <p class="eyebrow">LITMEDIX · PUBMED 文献助手</p>
+    <h1>把 PubMed 检索，变成<br>更清晰的阅读决策。</h1>
+    <p class="intro">从筛选文献、记录要点，到导入文献管理软件，让阅读与写作衔接起来。无需注册 LitMedix 账号。</p>
+    <section class="steps">
+      <article><span>01</span><h2>导入期刊指标</h2><p>点击扩展图标，导入你有权使用的 CSV、TSV 或 JSON 数据。</p></article>
+      <article><span>02</span><h2>在 PubMed 检索</h2><p>查看期刊 IF、分区和年份；按阈值与分区快速筛选结果。</p></article>
+      <article><span>03</span><h2>记录与引用</h2><p>添加 Markdown 笔记；点击文献旁的“引用”，复制引用文本或下载 RIS 题录文件。</p></article>
+    </section>
+    <section class="export-guide" aria-labelledby="export-title">
+      <p class="eyebrow">新增 · 文献管理软件导出</p>
+      <h2 id="export-title">把文献带入你的文献库</h2>
+      <p>在 PubMed 检索结果页或文章详情页，点击指标栏旁的“引用”，选择对应软件。</p>
+      <div class="software-list" aria-label="支持的软件"><span>EndNote</span><span>Zotero</span><span>NoteExpress</span></div>
+      <ol>
+        <li><strong>选择导出格式</strong><span>点击“导出至 EndNote / Zotero / NoteExpress（RIS）”。</span></li>
+        <li><strong>下载完整题录</strong><span>插件从 PubMed 获取作者、卷期、页码、DOI、摘要等可用信息，生成 .ris 文件。</span></li>
+        <li><strong>导入文献库</strong><span>打开下载的文件，或在软件中选择“文件导入”。Zotero 选择该文件；EndNote 选择 Reference Manager (RIS)；NoteExpress 选择 RIS 过滤器。</span></li>
+      </ol>
+      <p class="export-note">是否自动打开软件取决于电脑的文件关联设置。导出的是文献题录，不包含全文 PDF；获取题录需要联网。</p>
+    </section>
+    <section class="more-features" aria-labelledby="more-title">
+      <h2 id="more-title">再试试这些阅读工具</h2>
+      <p><strong>相似文献：</strong>在详情页点击“加载相似文献”，按已导入的期刊 IF 排序查看。</p>
+      <p><strong>关键词高亮：</strong>在筛选框“更多筛选”中输入标题关键词，筛选并高亮命中词。</p>
+      <p><strong>保存检索式：</strong>在 PubMed 检索结果页打开扩展弹窗，点击“保存当前页”，下次可直接复用。</p>
+    </section>
+    <div class="actions"><a href="https://pubmed.ncbi.nlm.nih.gov/" target="_blank" rel="noopener">前往 PubMed</a><button id="open-popup" type="button">打开扩展设置</button><a href="https://github.com/shupengstyle/LitMedix" target="_blank" rel="noopener noreferrer">GitHub 项目主页</a></div>
+    <p class="footnote">随时可从扩展弹窗的“使用指南”重新打开本页。期刊指标需自行导入，不影响笔记和引用导出功能。</p>
+  </main>
+  <script src="welcome.js"></script>
+</body>
+</html>

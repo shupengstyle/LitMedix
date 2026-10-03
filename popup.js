@@ -1,24 +1,105 @@
 ﻿const enabled = document.querySelector('#enabled');
 const status = document.querySelector('#status');
+const saveButton = document.querySelector('#save');
 const fileInput = document.querySelector('#if-file');
 const importButton = document.querySelector('#import-if');
 const clearButton = document.querySelector('#clear-if');
 const yearInput = document.querySelector('#if-year');
 const summary = document.querySelector('#import-summary');
+const savedSearches = document.querySelector('#saved-searches');
+const saveCurrentSearch = document.querySelector('#save-current-search');
+const DEFAULT_IF_COLOR_CONFIG = Object.freeze({
+  thresholds: [10, 5, 3],
+  colors: ['#c0392b', '#e67e22', '#3273b8', '#607d8b']
+});
 let selectedFile = null;
 
 yearInput.value = String(new Date().getFullYear() - 1);
 
-chrome.storage.sync.get({ enabled: true }, (value) => {
+chrome.storage.sync.get({ enabled: true, ifColorConfig: DEFAULT_IF_COLOR_CONFIG }, (value) => {
   enabled.checked = value.enabled;
+  setColorForm(normalizeColorConfig(value.ifColorConfig));
 });
 
 refreshImportStatus();
+document.querySelector('#open-guide').addEventListener('click', () => {
+  chrome.tabs.create({ url: chrome.runtime.getURL('welcome.html') });
+});
+renderSavedSearches();
 
-document.querySelector('#save').addEventListener('click', () => {
-  chrome.storage.sync.set({ enabled: enabled.checked }, () => {
-    showStatus('已保存，刷新 PubMed 页面后生效');
+saveCurrentSearch.addEventListener('click', async () => {
+  const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
+  let url;
+  try { url = new URL(tab?.url || ''); } catch { url = null; }
+  if (!url || url.hostname !== 'pubmed.ncbi.nlm.nih.gov' || !url.searchParams.get('term')) {
+    showStatus('请先打开带有检索词的 PubMed 结果页', true);
+    return;
+  }
+  const term = url.searchParams.get('term').trim();
+  const { litmedixSavedQueries = [] } = await chrome.storage.sync.get('litmedixSavedQueries');
+  if (litmedixSavedQueries.some((item) => item.term === term)) {
+    showStatus('该检索式已经保存');
+    return;
+  }
+  const label = term.length > 38 ? `${term.slice(0, 38)}…` : term;
+  const queries = [{ id: crypto.randomUUID(), term, label, savedAt: Date.now() }, ...litmedixSavedQueries].slice(0, 30);
+  await chrome.storage.sync.set({ litmedixSavedQueries: queries });
+  await renderSavedSearches();
+  showStatus('已保存当前 PubMed 检索式');
+});
+
+async function renderSavedSearches() {
+  const { litmedixSavedQueries = [] } = await chrome.storage.sync.get('litmedixSavedQueries');
+  savedSearches.innerHTML = '';
+  if (!litmedixSavedQueries.length) {
+    savedSearches.innerHTML = '<p class="saved-search-empty">尚无已保存检索式</p>';
+    return;
+  }
+  litmedixSavedQueries.forEach((query) => {
+    const item = document.createElement('div');
+    item.className = 'saved-search-item';
+    const open = document.createElement('button');
+    open.className = 'saved-search-open';
+    open.type = 'button';
+    open.textContent = query.label || query.term;
+    open.title = query.term;
+    open.addEventListener('click', () => chrome.tabs.create({ url: `https://pubmed.ncbi.nlm.nih.gov/?term=${encodeURIComponent(query.term)}` }));
+    const remove = document.createElement('button');
+    remove.className = 'saved-search-remove';
+    remove.type = 'button';
+    remove.setAttribute('aria-label', `删除检索式：${query.label || query.term}`);
+    remove.textContent = '×';
+    remove.addEventListener('click', async () => {
+      const current = (await chrome.storage.sync.get('litmedixSavedQueries')).litmedixSavedQueries || [];
+      await chrome.storage.sync.set({ litmedixSavedQueries: current.filter((item) => item.id !== query.id) });
+      renderSavedSearches();
+    });
+    item.append(open, remove);
+    savedSearches.appendChild(item);
   });
+}
+
+saveButton.addEventListener('click', () => {
+  const ifColorConfig = readColorForm();
+  if (!ifColorConfig) return;
+  chrome.storage.sync.set({ enabled: enabled.checked, ifColorConfig }, () => {
+    if (chrome.runtime.lastError) {
+      showStatus(`保存失败：${chrome.runtime.lastError.message}`, true);
+      return;
+    }
+    showStatus('设置已保存，刷新 PubMed 页面后生效');
+    saveButton.textContent = '✓ 保存成功';
+    saveButton.classList.add('saved');
+    setTimeout(() => {
+      saveButton.textContent = '保存设置';
+      saveButton.classList.remove('saved');
+    }, 2200);
+  });
+});
+
+document.querySelector('#reset-colors').addEventListener('click', () => {
+  setColorForm(DEFAULT_IF_COLOR_CONFIG);
+  showStatus('已恢复默认配色，请点击“保存设置”');
 });
 
 document.querySelector('#open-notes').addEventListener('click', () => {
@@ -195,6 +276,31 @@ function parseIf(rawValue) {
   if (lessThan) return { value: Number(lessThan[1]) / 2, display: `<${lessThan[1]}` };
   const value = Number(text.replace(/,/g, ''));
   return Number.isFinite(value) && value >= 0 ? { value, display: '' } : null;
+}
+
+function normalizeColorConfig(value) {
+  const thresholds = Array.isArray(value?.thresholds) ? value.thresholds.map(Number) : [];
+  const colors = Array.isArray(value?.colors) ? value.colors.map(String) : [];
+  if (thresholds.length !== 3 || colors.length !== 4 || thresholds.some((item) => !Number.isFinite(item)) || colors.some((item) => !/^#[0-9a-f]{6}$/i.test(item))) {
+    return { thresholds: [...DEFAULT_IF_COLOR_CONFIG.thresholds], colors: [...DEFAULT_IF_COLOR_CONFIG.colors] };
+  }
+  return { thresholds, colors };
+}
+
+function setColorForm(config) {
+  const normalized = normalizeColorConfig(config);
+  ['#if-high', '#if-medium', '#if-low'].forEach((selector, index) => { document.querySelector(selector).value = normalized.thresholds[index]; });
+  ['#color-high', '#color-medium', '#color-low', '#color-base'].forEach((selector, index) => { document.querySelector(selector).value = normalized.colors[index]; });
+}
+
+function readColorForm() {
+  const thresholds = ['#if-high', '#if-medium', '#if-low'].map((selector) => Number(document.querySelector(selector).value));
+  if (thresholds.some((item) => !Number.isFinite(item) || item < 0) || !(thresholds[0] > thresholds[1] && thresholds[1] > thresholds[2])) {
+    showStatus('IF 分界值必须依次递减，例如 10、5、3', true);
+    return null;
+  }
+  const colors = ['#color-high', '#color-medium', '#color-low', '#color-base'].map((selector) => document.querySelector(selector).value);
+  return { thresholds, colors };
 }
 
 function showStatus(message, isError = false) {

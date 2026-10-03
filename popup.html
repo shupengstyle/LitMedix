@@ -11,6 +11,21 @@
   <label class="switch"><span>启用页面增强</span><input id="enabled" type="checkbox"><i></i></label>
   <button id="save">保存设置</button>
   <button id="open-notes" class="notes-button" type="button">打开文献笔记库</button>
+  <button id="open-guide" class="text-button" type="button">使用指南 · 引用与文献软件导出</button>
+  <section class="saved-search-card">
+    <div class="section-title"><h2>已保存的 PubMed 检索式</h2><button id="save-current-search" class="mini-button" type="button">保存当前页</button></div>
+    <p class="hint">在 PubMed 检索结果页打开此弹窗，即可将当前检索式保存到本机。</p>
+    <div id="saved-searches" class="saved-searches" aria-live="polite"></div>
+  </section>
+  <section class="color-card">
+    <h2>期刊名称背景色</h2>
+    <p class="hint">按影响因子范围显示期刊名称标签颜色。修改后点击“保存设置”，刷新 PubMed 页面生效。</p>
+    <div class="color-row"><label><span>IF ≥</span><input id="if-high" type="number" min="0" max="1000" step="0.1"></label><input id="color-high" type="color" aria-label="高影响因子背景色"></div>
+    <div class="color-row"><label><span>IF ≥</span><input id="if-medium" type="number" min="0" max="1000" step="0.1"></label><input id="color-medium" type="color" aria-label="中高影响因子背景色"></div>
+    <div class="color-row"><label><span>IF ≥</span><input id="if-low" type="number" min="0" max="1000" step="0.1"></label><input id="color-low" type="color" aria-label="中等影响因子背景色"></div>
+    <div class="color-row"><span>低于上述范围</span><input id="color-base" type="color" aria-label="低影响因子背景色"></div>
+    <button id="reset-colors" class="text-button" type="button">恢复默认配色</button>
+  </section>
   <section class="import-card">
     <h2>更新影响因子</h2>
     <p class="hint">导入 JSON、CSV 或 TSV。Excel 文件请先另存为“CSV UTF-8”。公开版不内置商业期刊数据库；请导入你有权使用的数据。</p>

@@ -17,3 +17,54 @@
 .ps-note-button path {
   fill: currentColor;
 }
+
+/* Keep citation controls compact even when PubMed supplies button defaults. */
+.ps-meta .ps-cite-wrap {
+  display: inline-flex;
+  align-items: center;
+  flex: 0 0 auto;
+  margin: 0 !important;
+  padding: 0 !important;
+  vertical-align: middle;
+}
+
+.ps-meta .ps-cite-wrap > button.ps-cite-button {
+  box-sizing: border-box !important;
+  appearance: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 44px !important;
+  min-width: 44px !important;
+  max-width: 44px !important;
+  height: 26px !important;
+  min-height: 26px !important;
+  max-height: 26px !important;
+  margin: 0 !important;
+  padding: 0 6px !important;
+  border: 1px solid #164b8e !important;
+  border-radius: 4px !important;
+  background: #164b8e !important;
+  color: #fff !important;
+  font: 600 12px/1 system-ui, "Microsoft YaHei", sans-serif !important;
+  letter-spacing: 0 !important;
+  text-indent: 0 !important;
+  text-shadow: none !important;
+  box-shadow: none !important;
+  white-space: nowrap !important;
+  cursor: pointer;
+}
+
+.ps-meta .ps-cite-wrap > button.ps-cite-button:hover {
+  background: #0d7593 !important;
+  border-color: #0d7593 !important;
+}
+
+.ps-meta .ps-cite-wrap > button.ps-cite-button:focus-visible {
+  outline: 3px solid rgba(22,105,224,.28) !important;
+  outline-offset: 2px;
+}
+
+.ps-meta .ps-cite-menu {
+  top: calc(100% + 5px);
+}

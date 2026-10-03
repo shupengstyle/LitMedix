@@ -4,7 +4,7 @@
 
 <h1 align="center">LitMedix</h1>
 
-<p align="center">为 PubMed 增加期刊指标、智能筛选、历年趋势和本地 Markdown 文献笔记。</p>
+<p align="center">为 PubMed 增加期刊指标、智能筛选、相似文献排序、一键引用和本地 Markdown 文献笔记。</p>
 
 <p align="center">
   <a href="https://chromewebstore.google.com/detail/mnhemcidnfciakknjnaenljdmhogoobk">Chrome 应用商店</a> ·
@@ -15,12 +15,25 @@
 
 ## 主要功能
 
+当前版本：**1.6.5**。本次更新加入文献软件 RIS 导出、新手引导页与 GitHub 入口、检索式保存及关键词高亮，修复相似文献解析，并优化引用按钮尺寸。
+
 - 在 PubMed 检索结果页和详情页显示用户导入的期刊指标；
+- 可自定义 IF 分界值与颜色，按影响因子范围显示期刊名称背景色；
 - 按最低 IF、JCR 分区等条件筛选文献；
+- 输入标题关键词时同步高亮命中词，并可在扩展弹窗保存、复用 PubMed 检索式；
 - 悬停查看历年影响因子折线图；
+- 一键复制 Vancouver、APA 和 GB/T 7714 基础引用格式；
+- 引用菜单可导出 EndNote、Zotero、NoteExpress 使用的 UTF-8 RIS 题录文件，包含 PubMed 提供的完整作者、卷期、页码、DOI、摘要与关键词；
+- 在文献详情页加载 PubMed 相似文献，并按已导入期刊 IF 排序；
 - 创建、搜索、标记、导入、导出和备份本地 Markdown 笔记；
 - 在任意网页选中 PMID 或 DOI，通过右键菜单直达 PubMed；
 - 笔记、设置和用户导入的数据默认保存在浏览器本地。
+
+首次安装会自动打开三步引导页，说明数据导入、PubMed 页面增强和本地笔记的使用方式。
+
+### 导入文献管理软件
+
+在检索结果或文章详情的“引用”菜单选择“导出至 EndNote / Zotero / NoteExpress（RIS）”。下载后打开 `.ris` 文件，或在对应软件中选择文件导入，格式选 RIS（EndNote 中通常名为 Reference Manager (RIS)）。Zotero 可使用“文件 → 导入”，NoteExpress 选择 RIS 过滤器。是否自动启动软件取决于系统文件关联；插件不会直接写入桌面软件的文献库。导出需要连接 NCBI；获取失败时显示重试提示，不生成缺失题录的文件。
 
 ## 官方安装
 

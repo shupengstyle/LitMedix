@@ -42,7 +42,10 @@ function extractDoi(selection) {
   return match ? cleaned : null;
 }
 
-chrome.runtime.onInstalled.addListener(createContextMenu);
+chrome.runtime.onInstalled.addListener((details) => {
+  createContextMenu();
+  if (details.reason === 'install') chrome.tabs.create({ url: chrome.runtime.getURL('welcome.html') });
+});
 chrome.runtime.onStartup.addListener(createContextMenu);
 
 chrome.contextMenus.onClicked.addListener((info) => {

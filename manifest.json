@@ -1,7 +1,7 @@
 ﻿{
     "manifest_version":  3,
     "name":  "LitMedix - PubMed 文献助手",
-    "version":  "1.4.5",
+    "version":  "1.6.5",
     "description":  "增强 PubMed 检索、筛选与本地文献笔记；支持用户自行导入期刊指标数据。",
     "permissions":  [
                         "storage",
@@ -39,6 +39,8 @@
                                             ],
                                 "js":  [
                                            "journal-data.js",
+                                           "reference-export.js",
+                                           "pubmed-links.js",
                                            "content.js"
                                        ],
                                 "css":  [
